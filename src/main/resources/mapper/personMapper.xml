@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC  "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.xia.xia.mapper.PersonMapper">
+    <resultMap id="personResult" type="com.xia.xia.bean.Person">
+        <id property="id" column="id"/>
+<!--        property是bean中字段的名字，column是表中字段的名字-->
+        <result property="name" column="name"/>
+        <result property="isDelete" column="id_delete"/>
+    </resultMap>
+    <select id="selectAllPerson" resultMap="personResult">
+        select * from `st-test`.person where is_delete = 0
+    </select>
+    <insert id="insertPerson" parameterType="com.xia.xia.bean.Person">
+        insert `st-test`.person (name) value (#{person.name})
+    </insert>
+    <update id="deletePerson" parameterType="com.xia.xia.bean.Person">
+        update `st-test`.person
+        set is_delete = 1
+        where id = #{person.id}
+    </update>
+    <update id="updatePerson" parameterType="com.xia.xia.bean.Person">
+        update `st-test`.person
+        set name = #{person.name}
+        where id = #{person.id}
+    </update>
+    <select id="selectPersonById" resultMap="personResult">
+        select * from `st-test`.person where id = #{person.id}
+    </select>
+</mapper>
